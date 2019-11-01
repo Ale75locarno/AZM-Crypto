@@ -17,3 +17,21 @@ example
 All would benefit from this and disclosure could also be made in the form of Marketing following agreements with mining companies or mining and machinery rental companies
 
 the blockchain chosen for the use of the crypto would always be connected to Ethereum
+contract NomeCripto {
+    /* La lista di tutti i saldi di tutti i wallet che utilizzano la criptovaluta */
+    mapping (address =&gt; uint256) public balanceOf;
+ 
+    /* Inizializzo il contratto e mi assegno tutti i coin creati */
+    function NomeCripto(
+        uint256 initialSupply
+        ) {
+        balanceOf[msg.sender] = initialSupply;              // Mi assegno tutti i coin creati
+    }
+ 
+    /* Invio i coin */
+    function transfer(address _to, uint256 _value) {
+        require(balanceOf[msg.sender] &gt;= _value);           // Controllo che il mittente ne abbia abbastanza
+        balanceOf[msg.sender] -= _value;                    // Rimuovo i coin dal mittente
+        balanceOf[_to] += _value;                           // ... e gli aggiungo al destinatario
+    }
+}
